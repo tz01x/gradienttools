@@ -1,0 +1,23 @@
+.App {
+  font-family: sans-serif;
+  text-align: center;
+}
+.box {
+  height: 10vh;
+  background-image: linear-gradient(to right, red 10px, white 200px, red 100px);
+  /* background-image: linear-gradient(to right,red 50%,blue ); */
+  color: royalblue;
+  margin: auto;
+  width: 60%;
+  /* background-position: 400%; */
+  /* background-size:1200% 100%; */
+  animation: rgb 2s infinite alternate;
+}
+@keyframes rgb {
+  0% {
+    background-position-x: 0%;
+  }
+  100% {
+    background-position-x: 100%;
+  }
+}
