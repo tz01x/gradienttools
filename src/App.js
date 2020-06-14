@@ -72,44 +72,23 @@ export default function App() {
     console.log(newcolors);
 
     setSelectedColor([...newcolors]);
+    console.log(selectedColor);
+    
   };
 
   const handelRemoveAllColor = () => {
     setSelectedColor([]);
   };
-  const showData = () => {
-    const data = [];
-    for (let index = 0; index < selectedColor.length; index++) {
-      const value = selectedColor[index];
-
-      data.push(
-        <div className="color-viewer-item" key={index}>
-          <ColorPreview
-            color={value} //initial color
-            itemNo={index}
-            handelRemoveColor={handelRemoveColor}
-            handelGradientColorChange={handelGradientColorChange}
-          />
-
-          {/* key dont actualy set a value so you cant find in props.key */}
-        </div>
-      );
-    }
-    return data;
-  };
+ 
 
   React.useEffect(() => {
     updatebgImg(
       `linear-gradient(${gradDirection}, ${selectedColor.join(",")})`
     );
 
-    return () => {
-      //this function this component get unmount or deleted
-      // clenup code
-      // remove you event listener
-      //api call
-      //
-    };
+    
+
+
   }, [gradDirection, selectedColor]);
 
   const boxkeyframe = keyframes`
@@ -146,10 +125,20 @@ export default function App() {
       />
 
       <div className="color-viewer">
-        {showData()}
-        {/* {selectedColor.map((value, i) => {
-          
-        })} */}
+      
+        {selectedColor.map((value,index)=>{
+         return <div className="color-viewer-item" key={index}>
+          <ColorPreview
+            color={value} //initial color
+            itemNo={index}
+            handelRemoveColor={handelRemoveColor}
+            handelGradientColorChange={handelGradientColorChange}
+          />
+
+          {/* key dont actualy set a value so you cant find in props.key */}
+        </div>;
+        })}
+        
 
         <div className="color-viewer-item">
           <AddNewColor handeladdNewColor={handeladdNewColor} />
