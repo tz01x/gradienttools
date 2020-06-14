@@ -6,6 +6,15 @@ import Typography from "@material-ui/core/Typography";
 import Slider from "@material-ui/core/Slider";
 import styled, { keyframes } from "styled-components";
 
+import Button from "@material-ui/core/Button";
+
+import ColorPreview from "./colorPreview";
+
+import { TextField } from "@material-ui/core";
+
+// import form src
+import AddNewColor from "./addNewColor";
+
 const useStyles = makeStyles({
   root: {
     width: 200
@@ -14,71 +23,138 @@ const useStyles = makeStyles({
 
 export default function App() {
   const classes = useStyles();
+
+  //initial value
+  const [gradDirection, updateDirection] = React.useState("to right");
+  const [backgrountImg, updatebgImg] = React.useState(
+    `linear-gradient(${gradDirection}, blue ,pink)`
+  );
+  const [selectedColor, setSelectedColor] = React.useState(["blue", "pink"]); //initial colors
+
   const [value, setValue] = React.useState(30);
 
-  const handleChange = (event, newValue) => {
+  const handelSliderValueChange = (event, newValue) => {
     setValue(newValue);
   };
-  const pStyle = {
-    fontSize: "100px",
-    textAlign: "center",
-    Animation: "rbg 2s infinite alternate",
-    backgroundImage:
-      "linear-gradient(to right, red 10px , white  200px , red 100px )",
-    backgroundSize: "400%"
-  };
-  const pulse = keyframes`
-  from {
-    background-color: #001F3F;
-  }
 
-  to {
-    background-color: #FF4136;
-  }
-`;
-  const Bar = styled.div`
-    color: #000;
-    padding: 1em 0;
-    font-size: 20px;
-    text-align: center;
-    cursor: pointer;
-    position: fixed;
-    bottom: "0";
-    width: 100%;
-    z-index: 10;
-    animation: ${pulse} 1.2s ease-in-out;
-    animation-iteration-count: infinite;
-  `;
+  const hendeldirectionChnage = event => {
+    updateDirection(event.target.value);
+    // updatebgImg(`linear-gradient(${event.target.value} , ${selectedColor})`);
+  };
+  const handelGradientColorChange = (i, color) => {
+    // gradDirection
+    const newcolors = [...selectedColor];
+
+    for (let index = 0; index < selectedColor.length; index++) {
+      if (i === index) {
+        newcolors[i] = color;
+      }
+    }
+    setSelectedColor([...newcolors]);
+
+    // let text = `linear-gradient(${gradDirection},${selectedColor.join(",")})`;
+    // updatebgImg(text);
+    // console.log(text);
+  };
+
+  const handeladdNewColor = () => {
+    setSelectedColor([...selectedColor, "red"]);
+  };
+  const handelRemoveColor = i => {
+    console.log(i);
+
+    const newcolors = [];
+    for (let index = 0; index < selectedColor.length; index++) {
+      if (i !== index) {
+        newcolors.push(selectedColor[index]);
+      }
+    }
+    console.log(newcolors);
+
+    setSelectedColor([...newcolors]);
+  };
+
+  const handelRemoveAllColor = () => {
+    setSelectedColor([]);
+  };
+  const showData = () => {
+    const data = [];
+    for (let index = 0; index < selectedColor.length; index++) {
+      const value = selectedColor[index];
+
+      data.push(
+        <div className="color-viewer-item" key={index}>
+          <ColorPreview
+            color={value} //initial color
+            itemNo={index}
+            handelRemoveColor={handelRemoveColor}
+            handelGradientColorChange={handelGradientColorChange}
+          />
+
+          {/* key dont actualy set a value so you cant find in props.key */}
+        </div>
+      );
+    }
+    return data;
+  };
+
+  React.useEffect(() => {
+    updatebgImg(
+      `linear-gradient(${gradDirection}, ${selectedColor.join(",")})`
+    );
+
+    return () => {
+      //this function this component get unmount or deleted
+      // clenup code
+      // remove you event listener
+      //api call
+      //
+    };
+  }, [gradDirection, selectedColor]);
 
   const boxkeyframe = keyframes`
   
     0%{
-      background-position-x: 0%;
+      background-position: 0%;
     }
     100%{
-      background-position-x: 100%;
+      background-position: 100%;
     }
   
 `;
   const Box = styled.div`
     height: 10vh;
-    background-image: linear-gradient(to right, black, white, black);
-    background-size: 1200% 100%;
+    background-image: ${backgrountImg};
+    /* background-size: 400% 100%; */
     margin: auto;
     width: 60%;
-    animation: ${boxkeyframe} 2s 30s infinite alternate;
-    animation-play-state: running;
+    /* animation: ${boxkeyframe} 2s infinite alternate; */
+    /* animation-play-state: paused; */
   `;
 
   return (
     <div className="App">
-      <h1>Hello CodeSandbox</h1>
-      <h2>Start editing to see some magic happen!</h2>
+      <h1>Gradiendt Tool </h1>
+
       {/* <div className=""  style={pStyle}>this is box</div> */}
       <Box />
-      <Box />
-      <Box />
 
+      <TextField
+        label="Gradient direction"
+        onChange={hendeldirectionChnage}
+        value={gradDirection}
+      />
+
+      <div className="color-viewer">
+        {showData()}
+        {/* {selectedColor.map((value, i) => {
+          
+        })} */}
+
+        <div className="color-viewer-item">
+          <AddNewColor handeladdNewColor={handeladdNewColor} />
+        </div>
+      </div>
       <div className={classes.root}>
         <Typography id="continuous-slider" gutterBottom>
           {/* Volume */}
@@ -88,8 +164,9 @@ export default function App() {
           <Grid item xs>
             <Slider
               value={value}
-              onChange={handleChange}
+              onChange={handelSliderValueChange}
               aria-labelledby="continuous-slider"
+              max={500}
             />
           </Grid>
           <Grid item />
@@ -97,6 +174,7 @@ export default function App() {
         <div>value is {value} px</div>
         <div />
       </div>
+      <button onClick={handelRemoveAllColor}>remove all</button>
       {/* <Bar onClick={()=>alert("whats upp")}  className="">I pulse</Bar> */}
     </div>
   );
