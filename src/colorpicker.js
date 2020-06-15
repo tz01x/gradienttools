@@ -31,9 +31,6 @@ export default function ColorPicker(props) {
           color={state.background}
           onChangeComplete={handleChangeComplete}
         />
-        <div className="closebtn" onClick={handleClickAway}>
-          close
-        </div>
       </div>
     </ClickAwayListener>
   );

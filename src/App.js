@@ -26,15 +26,22 @@ export default function App() {
 
   //initial value
   const [gradDirection, updateDirection] = React.useState("to right");
+  const [gradientBackgoundSize, setGradientBackgoundSize] = React.useState(
+    "400% 100%"
+  );
   const [backgrountImg, updatebgImg] = React.useState(
     `linear-gradient(${gradDirection}, blue ,pink)`
   );
   const [selectedColor, setSelectedColor] = React.useState(["blue", "pink"]); //initial colors
-
+  const [animationPlayState, setAnimationPlayState] = React.useState("running");
   const [value, setValue] = React.useState(30);
 
   const handelSliderValueChange = (event, newValue) => {
     setValue(newValue);
+  };
+
+  const handelGradientBackgroundSizeChange = event => {
+    setGradientBackgoundSize(event.target.value);
   };
 
   const hendeldirectionChnage = event => {
@@ -73,22 +80,23 @@ export default function App() {
 
     setSelectedColor([...newcolors]);
     console.log(selectedColor);
-    
   };
 
   const handelRemoveAllColor = () => {
     setSelectedColor([]);
   };
- 
+  const handelAnimationPlayStateChange = () => {
+    if (animationPlayState === "running") {
+      setAnimationPlayState("paused");
+    } else {
+      setAnimationPlayState("running");
+    }
+  };
 
   React.useEffect(() => {
     updatebgImg(
       `linear-gradient(${gradDirection}, ${selectedColor.join(",")})`
     );
-
-    
-
-
   }, [gradDirection, selectedColor]);
 
   const boxkeyframe = keyframes`
@@ -101,14 +109,30 @@ export default function App() {
     }
   
 `;
+  let boxCssValues =
+    "{\n height: 10vh;\n background-image: " +
+    backgrountImg +
+    ";\n background-size: " +
+    gradientBackgoundSize +
+    ";\n animation: gradientAnimation 2s infinite alternate; \n}";
+
+  let boxKeyfream = ` @keyframs gradientAnimation{
+    0%{
+      background-position: 0%;
+    }
+    100%{
+      background-position: 100%;
+    }
+  }
+    `;
   const Box = styled.div`
-    height: 10vh;
+    height: 20vh;
     background-image: ${backgrountImg};
-    /* background-size: 400% 100%; */
+    background-size: ${gradientBackgoundSize};
     margin: auto;
     width: 60%;
-    /* animation: ${boxkeyframe} 2s infinite alternate; */
-    /* animation-play-state: paused; */
+    animation: ${boxkeyframe} 2s infinite alternate;
+    animation-play-state: ${animationPlayState};
   `;
 
   return (
@@ -118,35 +142,61 @@ export default function App() {
       {/* <div className=""  style={pStyle}>this is box</div> */}
       <Box />
 
-      <TextField
-        label="Gradient direction"
-        onChange={hendeldirectionChnage}
-        value={gradDirection}
-      />
+      <div className="testfields">
+        <TextField
+          label="Gradient direction"
+          onChange={hendeldirectionChnage}
+          value={gradDirection}
+        />
+        <br />
 
+        <TextField
+          label="Backgorund-size"
+          onChange={handelGradientBackgroundSizeChange}
+          value={gradientBackgoundSize}
+        />
+      </div>
+      <div className="container">
+        Amimation playstate :
+        <button onClick={handelAnimationPlayStateChange}>
+          {animationPlayState}
+        </button>
+      </div>
+      <br />
+      <h5 className="container" style={{ textAlign: "left" }}>
+        Gradient Colors
+      </h5>
       <div className="color-viewer">
-      
-        {selectedColor.map((value,index)=>{
-         return <div className="color-viewer-item" key={index}>
-          <ColorPreview
-            color={value} //initial color
-            itemNo={index}
-            handelRemoveColor={handelRemoveColor}
-            handelGradientColorChange={handelGradientColorChange}
-          />
+        {selectedColor.map((value, index) => {
+          return (
+            <div className="color-viewer-item" key={index}>
+              <ColorPreview
+                color={value} //initial color
+                itemNo={index}
+                handelRemoveColor={handelRemoveColor}
+                handelGradientColorChange={handelGradientColorChange}
+              />
 
-          {/* key dont actualy set a value so you cant find in props.key */}
-        </div>;
+              {/* key dont actualy set a value so you cant find in props.key */}
+            </div>
+          );
         })}
-        
 
         <div className="color-viewer-item">
           <AddNewColor handeladdNewColor={handeladdNewColor} />
         </div>
+        <button onClick={handelRemoveAllColor}>remove all</button>
       </div>
-      <div className={classes.root}>
+
+      <pre className="gradientCSS" style={{ textAlign: "left" }}>
+        {boxCssValues}
+        {"\n\n"}
+        {boxKeyfream}
+      </pre>
+
+      {/* <div className={classes.root}>
         <Typography id="continuous-slider" gutterBottom>
-          {/* Volume */}
+          
         </Typography>
         <Grid container spacing={2}>
           <Grid item />
@@ -162,8 +212,7 @@ export default function App() {
         </Grid>
         <div>value is {value} px</div>
         <div />
-      </div>
-      <button onClick={handelRemoveAllColor}>remove all</button>
+      </div> */}
       {/* <Bar onClick={()=>alert("whats upp")}  className="">I pulse</Bar> */}
     </div>
   );

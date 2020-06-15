@@ -3,18 +3,16 @@ import React from "react";
 import ColorPicker from "./colorpicker";
 
 export default function ColorPreview(props) {
-  console.log(props.color);
-  
   const [showbtn, setShowbtn] = React.useState(false);
   const [showRemoveBtn, setShowRemoveBtn] = React.useState(false);
   let [bgColor, setbgColor] = React.useState({
     background: props.color ? props.color : "red"
   });
-  React.useEffect(()=>{
-   setbgColor({
-    background: props.color ? props.color : "red"
-  });
-  },[props.color ]);
+  React.useEffect(() => {
+    setbgColor({
+      background: props.color ? props.color : "red"
+    });
+  }, [props.color]);
   const handelBGColor = clolorASstirng => {
     setbgColor({ background: clolorASstirng });
     props.handelGradientColorChange(props.itemNo, clolorASstirng);
@@ -32,6 +30,7 @@ export default function ColorPreview(props) {
       onMouseLeave={() => {
         setShowRemoveBtn(false);
       }}
+      style={{ position: "relative" }}
     >
       <div
         className="colorPriview"

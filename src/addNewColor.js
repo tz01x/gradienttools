@@ -4,7 +4,12 @@ export default function AddNewColor(props) {
   return (
     <div
       className="colorPriview"
-      style={{ background: "white", fontSize: "20px", cursor: "pointer" }}
+      style={{
+        background: "white",
+        fontSize: "20px",
+        cursor: "pointer",
+        textAlign: "center"
+      }}
       onClick={props.handeladdNewColor}
     >
       +

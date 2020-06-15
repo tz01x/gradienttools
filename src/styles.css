@@ -1,18 +1,7 @@
 .App {
   font-family: Abel, sans-serif;
-  text-align: center;
 }
-.box {
-  height: 10vh;
-  background-image: linear-gradient(to right, red 10px, white 200px, red 100px);
-  /* background-image: linear-gradient(to right,red 50%,blue ); */
-  color: royalblue;
-  margin: auto;
-  width: 60%;
-  /* background-position: 400%; */
-  /* background-size:1200% 100%; */
-  animation: rgb 2s infinite alternate;
-}
+
 @keyframes rgb {
   0% {
     background-position-x: 0%;
@@ -21,9 +10,25 @@
     background-position-x: 100%;
   }
 }
+.container {
+  width: 60%;
+  margin: auto;
+}
+.testfields {
+  margin: 25px auto;
+
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+
+  align-content: center;
+  justify-content: center;
+}
 
 .color-viewer {
   display: flex;
+  width: 60%;
+  margin: 20px auto;
   /* margin: 0px 5px; */
 }
 .color-viewer-item {
@@ -38,15 +43,15 @@
 }
 
 .color-remove {
-  position: relative;
-  top: -90px;
+  position: absolute;
+  top: -65px;
   font-size: 12px;
   letter-spacing: 1px;
   font-weight: bold;
   width: 26px;
   height: 60px;
 
-  background: rgba(0, 0, 0, 0.1);
+  background: rgba(0, 0, 0, 0.3);
   padding: 2px;
   z-index: 2;
   border-radius: 20px;
@@ -79,4 +84,11 @@
   100% {
     transform: scale(1);
   }
+}
+
+.gradientCSS {
+  border: 1px solid black;
+  padding: 10px;
+  /* color: white; */
+  /* background-color: black; */
 }
