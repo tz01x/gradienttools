@@ -1,5 +1,6 @@
 {
-  "name": "gradienttool",
+  "name": "gradienttools",
+  "homepage": "http://tz01x.github.io/gradienttools",
   "version": "1.0.0",
   "description": "Gradient Tools with React",
   "keywords": [
@@ -16,13 +17,16 @@
     "styled-components": "5.1.1"
   },
   "devDependencies": {
+    "gh-pages": "^3.0.0",
     "typescript": "3.8.3"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "browserslist": [
     ">0.2%",
