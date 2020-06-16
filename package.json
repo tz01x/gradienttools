@@ -1,10 +1,10 @@
 {
-  "name": "react",
+  "name": "gradienttool",
   "version": "1.0.0",
-  "description": "React example starter project",
+  "description": "Gradient Tools with React",
   "keywords": [
-    "react",
-    "starter"
+    "tools",
+    "gradient"
   ],
   "main": "src/index.js",
   "dependencies": {

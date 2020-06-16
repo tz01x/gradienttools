@@ -109,22 +109,7 @@ export default function App() {
     }
   
 `;
-  let boxCssValues =
-    "{\n height: 10vh;\n background-image: " +
-    backgrountImg +
-    ";\n background-size: " +
-    gradientBackgoundSize +
-    ";\n animation: gradientAnimation 2s infinite alternate; \n}";
 
-  let boxKeyfream = ` @keyframs gradientAnimation{
-    0%{
-      background-position: 0%;
-    }
-    100%{
-      background-position: 100%;
-    }
-  }
-    `;
   const Box = styled.div`
     height: 20vh;
     background-image: ${backgrountImg};
@@ -137,7 +122,7 @@ export default function App() {
 
   return (
     <div className="App">
-      <h1>Gradiendt Tool </h1>
+      <h1 style={{ textAlign: "center" , margin:"2em 0" }}>Gradiendt Tool </h1>
 
       {/* <div className=""  style={pStyle}>this is box</div> */}
       <Box />
@@ -158,7 +143,8 @@ export default function App() {
       </div>
       <div className="container">
         Amimation playstate :
-        <button onClick={handelAnimationPlayStateChange}>
+        <span>  </span>
+        <button onClick={handelAnimationPlayStateChange} style={{padding:"2px"}}>
           {animationPlayState}
         </button>
       </div>
@@ -187,11 +173,34 @@ export default function App() {
         </div>
         <button onClick={handelRemoveAllColor}>remove all</button>
       </div>
-
+      <h4 className="container">Preview:</h4>
       <pre className="gradientCSS" style={{ textAlign: "left" }}>
-        {boxCssValues}
-        {"\n\n"}
-        {boxKeyfream}
+       
+
+        {'{'}
+        <br />
+        <div><span style={{ color: "#009FFF" }}> height</span>: <samp>10vh</samp>;</div>
+
+        <div><span style={{ color: "#009FFF" }}> background-image </span>: <span style={{whiteSpace:'pre-line'}}>{backgrountImg}</span> ;</div>
+        <div><span style={{ color: "#009FFF" }}> background-size </span>: <span >{gradientBackgoundSize}</span> ;</div>
+        <div><span style={{ color: "#009FFF" }}> animation </span>: gradientAnimation 2s infinite alternate</div>
+    
+        {'}'}
+        {"\n"}
+ 
+
+      <div><span style={{ color: "pink" }} >@keyframes</span> gradientAnimation {"{"}</div>
+      <div style={{position:"relative",left:"10px"}}>
+      <div>0%{"{"}</div>
+      <div><span style={{ color: "#009FFF" }}> background-position</span> : 0%;</div>
+      <div>{'}'}</div>
+      <div>100%{"{"}</div>
+      <div><span style={{ color: "#009FFF" }}> background-position</span> : 100%;</div>
+      <div>{'}'}</div>
+      </div>
+      <div>{'}'}</div>
+
+
       </pre>
 
       {/* <div className={classes.root}>
