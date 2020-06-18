@@ -42,6 +42,11 @@ export default function ColorPreview(props) {
             bgColor={bgColor}
             handelBGColor={handelBGColor}
             handelColorPickerPriview={handelColorPickerPriview}
+            itemNo={props.itemNo}
+            cwidth={props.cwidth}
+            cunit={props.cunit}
+            handelSelectedColorWidthChnage={props.handelSelectedColorWidthChnage}
+            handelSelectColorsWidthUnit={props.handelSelectColorsWidthUnit}
           />
         ) : null}
       </div>

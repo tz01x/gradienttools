@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { SketchPicker } from "react-color";
 import ClickAwayListener from "@material-ui/core/ClickAwayListener";
-
+import ContinuousSlider from './horizontalSlider';
 export default function ColorPicker(props) {
   const [state, updatestate] = React.useState({
     background: {
@@ -36,6 +36,19 @@ export default function ColorPicker(props) {
           color={state.background}
           onChange={handleChange}
         />
+        <div className="">
+          
+          <ContinuousSlider
+                  cunit={props.cunit}
+
+                  itemNo={props.itemNo}
+                   cwidth={props.cwidth}
+                   handelSelectedColorWidthChnage={props.handelSelectedColorWidthChnage}
+                    handelSelectColorsWidthUnit={props.handelSelectColorsWidthUnit}
+
+          />
+
+        </div>
       </div>
     </ClickAwayListener>
   );

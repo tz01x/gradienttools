@@ -33,7 +33,8 @@ export default function App() {
   const [backgrountImg, updatebgImg] = React.useState(
     `linear-gradient(${gradDirection}, blue ,pink)`
   );
-  const [selectedColor, setSelectedColor] = React.useState(["blue", "pink"]); //initial colors
+  const [selectedColor, setSelectedColor] = React.useState([{color:'blue',width:0,unit:'%'}, {color:'pink',width:0,unit:'%'}]); //initial colors
+
   const [animationDirection, setanimationDirection] = React.useState("alternate");
   const [animationPlayState, setAnimationPlayState] = React.useState("running");
   const [value, setValue] = React.useState(30);
@@ -56,7 +57,7 @@ export default function App() {
 
     for (let index = 0; index < selectedColor.length; index++) {
       if (i === index) {
-        newcolors[i] = color;
+        newcolors[i].color = color;
       }
     }
     setSelectedColor([...newcolors]);
@@ -67,7 +68,7 @@ export default function App() {
   };
 
   const handeladdNewColor = () => {
-    setSelectedColor([...selectedColor, "red"]);
+    setSelectedColor([...selectedColor, {color:'red',width:0,unit:'%'}]);
   };
   
   const handelRemoveColor = i => {
@@ -82,7 +83,26 @@ export default function App() {
     // console.log(newcolors);
 
     setSelectedColor([...newcolors]);
-    console.log(selectedColor);
+    // console.log(selectedColor);
+  };
+  
+  const handelSelectedColorWidthChnage=(i,w)=>{
+    const newC=[...selectedColor];
+    for (let index = 0; index < newC.length; index++) {
+      if(index==i){
+        newC[index].width=w;  //[exp] w=1
+      }
+    }
+    setSelectedColor(newC);
+  };
+  const handelSelectColorsWidthUnit=(i,unit)=>{
+    const newC=[...selectedColor];
+    for (let index = 0; index < newC.length; index++) {
+      if(index==i){
+        newC[index].unit=unit;  //[exp] unit="%"
+      }
+    }
+    setSelectedColor(newC);
   };
 
   const handelRemoveAllColor = () => {
@@ -98,10 +118,23 @@ export default function App() {
   const handelAnimationDirectionChange=(direction)=>{
     setanimationDirection(direction);
   }
+  const getSelectedColorsWithWidthAsString=()=>{
+    //[example] this funciton return this : blue 0, pink 0
+    let innerSting='';
+    for (let index = 0; index < selectedColor.length; index++) {
+      
+      innerSting+=`${selectedColor[index].color} ${selectedColor[index].width==0?'':selectedColor[index].width.toString()+selectedColor[index].unit}`
+      if (index!=selectedColor.length-1){innerSting+=", ";}
+
+
+      
+    }
+    return innerSting;
+  }
 
   React.useEffect(() => {
     updatebgImg(
-      `linear-gradient(${gradDirection}, ${selectedColor.join(",")})`
+      `linear-gradient(${gradDirection}, ${getSelectedColorsWithWidthAsString()})`
     );
   }, [gradDirection, selectedColor]);
 
@@ -171,10 +204,14 @@ export default function App() {
           return (
             <div className="color-viewer-item" key={index}>
               <ColorPreview
-                color={value} //initial color
+                color={value.color} //initial color
+                cwidth={value.width}
+                cunit={value.unit}
                 itemNo={index}
                 handelRemoveColor={handelRemoveColor}
                 handelGradientColorChange={handelGradientColorChange}
+                handelSelectedColorWidthChnage={handelSelectedColorWidthChnage}
+                handelSelectColorsWidthUnit={handelSelectColorsWidthUnit}
               />
 
               {/* key dont actualy set a value so you cant find in props.key */}
@@ -217,26 +254,7 @@ export default function App() {
 
       </pre>
 
-      {/* <div className={classes.root}>
-        <Typography id="continuous-slider" gutterBottom>
-          
-        </Typography>
-        <Grid container spacing={2}>
-          <Grid item />
-          <Grid item xs>
-            <Slider
-              value={value}
-              onChange={handelSliderValueChange}
-              aria-labelledby="continuous-slider"
-              max={500}
-            />
-          </Grid>
-          <Grid item />
-        </Grid>
-        <div>value is {value} px</div>
-        <div />
-      </div> */}
-      {/* <Bar onClick={()=>alert("whats upp")}  className="">I pulse</Bar> */}
+    
     </div>
   );
 }

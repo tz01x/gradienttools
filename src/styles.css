@@ -141,5 +141,15 @@ body{
 .MuiInputBase-root{
   width: 60%;
 }
+.horizontalSliderContainer{
+ 
+  margin-top: 7px;
+  background: white;
+  padding: 1px 10px;
+  color: black;
+  border-radius: 4px;
+  box-shadow: 1px 1px 10px -4px;
+}
+
 
 
