@@ -55,6 +55,7 @@ body{
 
 .color-viewer {
   display: flex;
+  flex-wrap: wrap;
   width: 60%;
   margin: 20px auto;
   /* margin: 0px 5px; */
