@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/gradienttools/static/css/main.d563669c.chunk.css",
-    "main.js": "/gradienttools/static/js/main.43d16d17.chunk.js",
-    "main.js.map": "/gradienttools/static/js/main.43d16d17.chunk.js.map",
+    "main.css": "/gradienttools/static/css/main.95754258.chunk.css",
+    "main.js": "/gradienttools/static/js/main.1885345e.chunk.js",
+    "main.js.map": "/gradienttools/static/js/main.1885345e.chunk.js.map",
     "runtime~main.js": "/gradienttools/static/js/runtime~main.04ffaf79.js",
     "runtime~main.js.map": "/gradienttools/static/js/runtime~main.04ffaf79.js.map",
-    "static/js/2.74982c36.chunk.js": "/gradienttools/static/js/2.74982c36.chunk.js",
-    "static/js/2.74982c36.chunk.js.map": "/gradienttools/static/js/2.74982c36.chunk.js.map",
+    "static/js/2.96bd9b7e.chunk.js": "/gradienttools/static/js/2.96bd9b7e.chunk.js",
+    "static/js/2.96bd9b7e.chunk.js.map": "/gradienttools/static/js/2.96bd9b7e.chunk.js.map",
     "index.html": "/gradienttools/index.html",
-    "precache-manifest.aa32f6b1d16c77906070d7948fb07c5f.js": "/gradienttools/precache-manifest.aa32f6b1d16c77906070d7948fb07c5f.js",
+    "precache-manifest.972a17d388816547b4398978e8ff04e5.js": "/gradienttools/precache-manifest.972a17d388816547b4398978e8ff04e5.js",
     "service-worker.js": "/gradienttools/service-worker.js",
-    "static/css/main.d563669c.chunk.css.map": "/gradienttools/static/css/main.d563669c.chunk.css.map"
+    "static/css/main.95754258.chunk.css.map": "/gradienttools/static/css/main.95754258.chunk.css.map"
   }
 }
