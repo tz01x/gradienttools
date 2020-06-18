@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { SketchPicker } from "react-color";
 import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 
@@ -11,11 +11,16 @@ export default function ColorPicker(props) {
       a: 1
     }
   });
+  useEffect(()=>{
+  updatestate({background:props.bgColor.background});
+  console.log(props.bgColor.background);
+  
+  },[]);
   const rgbObjTostring = c => {
     return `rgba( ${c.r},${c.g},${c.b},${c.a})`;
     // rgba(255, 0, 0, 0.62);
   };
-  const handleChangeComplete = color => {
+  const handleChange = color => {
     updatestate({ background: color.rgb });
     props.handelBGColor(rgbObjTostring(color.rgb));
     // console.log(color.hex);
@@ -29,7 +34,7 @@ export default function ColorPicker(props) {
       <div className="colorPicker">
         <SketchPicker
           color={state.background}
-          onChangeComplete={handleChangeComplete}
+          onChange={handleChange}
         />
       </div>
     </ClickAwayListener>

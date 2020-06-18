@@ -3,9 +3,12 @@
   padding: 0;
   margin: 0;
 }
+body{
+  background: linear-gradient(45deg , pink , lightblue);
+}
 .App {
   font-family: Abel, sans-serif;
-  background-color : #ffffff91;
+  background: transparent;
   height: 100vh;
 }
 
@@ -14,6 +17,16 @@
 }
 
 
+.gradientBox{
+  width: 80%;
+  margin: auto;
+}
+
+@media screen and (max-width: 600px) {
+  .gradientBox{
+    width: 100%
+  }
+}
 
 
 
@@ -122,6 +135,11 @@
   .gradientCSS{
     overflow-x: scroll;
   } 
+}
+
+/* for select option */
+.MuiInputBase-root{
+  width: 60%;
 }
 
 

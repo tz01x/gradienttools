@@ -13,6 +13,7 @@ import ColorPreview from "./colorPreview";
 import { TextField } from "@material-ui/core";
 
 // import form src
+import SimpleSelect from './select';
 import AddNewColor from "./addNewColor";
 
 const useStyles = makeStyles({
@@ -33,6 +34,7 @@ export default function App() {
     `linear-gradient(${gradDirection}, blue ,pink)`
   );
   const [selectedColor, setSelectedColor] = React.useState(["blue", "pink"]); //initial colors
+  const [animationDirection, setanimationDirection] = React.useState("alternate");
   const [animationPlayState, setAnimationPlayState] = React.useState("running");
   const [value, setValue] = React.useState(30);
 
@@ -67,6 +69,7 @@ export default function App() {
   const handeladdNewColor = () => {
     setSelectedColor([...selectedColor, "red"]);
   };
+  
   const handelRemoveColor = i => {
     console.log(i);
 
@@ -76,7 +79,7 @@ export default function App() {
         newcolors.push(selectedColor[index]);
       }
     }
-    console.log(newcolors);
+    // console.log(newcolors);
 
     setSelectedColor([...newcolors]);
     console.log(selectedColor);
@@ -92,6 +95,9 @@ export default function App() {
       setAnimationPlayState("running");
     }
   };
+  const handelAnimationDirectionChange=(direction)=>{
+    setanimationDirection(direction);
+  }
 
   React.useEffect(() => {
     updatebgImg(
@@ -110,22 +116,20 @@ export default function App() {
   
 `;
 
-  const Box = styled.div`
+  const GradientBox = styled.div`
     height: 20vh;
     background-image: ${backgrountImg};
     background-size: ${gradientBackgoundSize};
-    margin: auto;
-    width: 60%;
-    animation: ${boxkeyframe} 2s infinite alternate;
+    animation: ${boxkeyframe} 2s infinite ${animationDirection};
     animation-play-state: ${animationPlayState};
   `;
 
   return (
     <div className="App">
-      <h1 style={{ textAlign: "center" , margin:"2em 0" }}>Gradiendt Tool </h1>
+      <h1 style={{ textAlign: "center" , margin:"2em 0" }}>Gradient Tool </h1>
 
-      {/* <div className=""  style={pStyle}>this is box</div> */}
-      <Box />
+     
+      <GradientBox  className={'gradientBox'} />
 
       <div className="testfields">
         <TextField
@@ -141,6 +145,16 @@ export default function App() {
           value={gradientBackgoundSize}
         />
       </div>
+      <div className="container">
+        <SimpleSelect 
+        label={'animation-direction'} 
+        options={['normal','reverse','alternate','alternate-reverse','initial','inherit']}
+        defaultValue={animationDirection}
+        handelAnimationDirectionChange={handelAnimationDirectionChange}
+
+        ></SimpleSelect>
+      </div>
+      <br/>
       <div className="container">
         Amimation playstate :
         <span>  </span>
@@ -183,7 +197,7 @@ export default function App() {
 
         <div><span style={{ color: "#009FFF" }}> background-image </span>: <span style={{whiteSpace:'pre-line'}}>{backgrountImg}</span> ;</div>
         <div><span style={{ color: "#009FFF" }}> background-size </span>: <span >{gradientBackgoundSize}</span> ;</div>
-        <div><span style={{ color: "#009FFF" }}> animation </span>: gradientAnimation 2s infinite alternate</div>
+        <div><span style={{ color: "#009FFF" }}> animation </span>: gradientAnimation 2s infinite {animationDirection}</div>
     
         {'}'}
         {"\n"}

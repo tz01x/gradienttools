@@ -39,6 +39,7 @@ export default function ColorPreview(props) {
       >
         {showbtn ? (
           <ColorPicker
+            bgColor={bgColor}
             handelBGColor={handelBGColor}
             handelColorPickerPriview={handelColorPickerPriview}
           />
